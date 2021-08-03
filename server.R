@@ -5,8 +5,13 @@ server <- function(input, output,session) {
 # ----------- LOAD TXT DATA --------- #
 
 txtInputData <- reactive({
-  req(input$txtInput, file.exists(input$txtInput$datapath))
-  df <- read.csv(input$txtInput$datapath, header = TRUE, sep = "\t")
+  req(input$txtInput1, file.exists(input$txtInput1$datapath))
+  df <- read.csv(input$txtInput1$datapath, header = TRUE, sep = "\t")
+})
+
+txtInputData2 <- reactive({
+  req(input$txtInput2, file.exists(input$txtInput2$datapath))
+  df2 <- read.csv(input$txtInput2$datapath, header = TRUE, sep = "\t")
 })
 
 
@@ -222,7 +227,19 @@ txtInputData <- reactive({
  # ----------------- PLOT FROM TXT FILE ---------------- #
 
 observeEvent(input$parseInput, {
+  
   kinaseData <- txtInputData()
+  
+  # Only run this if an additional file is uploaded
+
+  if (input$Addextrafile == TRUE) {
+    if (file.exists(input$txtInput2$datapath)) {
+    kinaseData2 <- txtInputData2()
+
+    kinaseData <- rbind(kinaseData, kinaseData2)
+   }
+  }
+    print(head(kinaseData))
 
     # Score cutoff at 1.2
     kinaseData <- kinaseData %>% filter(Median.Final.score > 1.2)
