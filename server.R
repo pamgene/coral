@@ -1,6 +1,15 @@
-
+library(dplyr)
 # server business
 server <- function(input, output,session) {
+
+# ----------- LOAD TXT DATA --------- #
+
+txtInputData <- reactive({
+  req(input$txtInput, file.exists(input$txtInput$datapath))
+  df <- read.csv(input$txtInput$datapath, header = TRUE, sep = "\t")
+})
+
+
  
  # ----------------- MAKE DIVS & USER FILES FOR TREE, CIRCLE, AND FORCE ---------------- #
  
@@ -209,6 +218,38 @@ server <- function(input, output,session) {
   }
   updateTextInput(session, "nodesizeValueBox", value = examplenodesizevaluedata)
  })
+
+ # ----------------- PLOT FROM TXT FILE ---------------- #
+
+observeEvent(input$parseInput, {
+  kinaseData <- txtInputData()
+
+    # Score cutoff at 1.2
+    kinaseData <- kinaseData %>% filter(Median.Final.score > 1.2)
+    kinaseNodeSize <<- kinaseData[,c("Kinase.Uniprot.ID", "Median.Final.score")]
+    kinaseNodeColor <<- kinaseData[,c("Kinase.Uniprot.ID", "Median.Kinase.Statistic")]
+
+  # Update branch color
+  updateTextInput(session, "branchValueIDtype", value = "uniprot")
+  kinaseBranches <- paste(apply(data.frame(kinaseNodeColor$Kinase.Uniprot.ID,kinaseNodeColor$Median.Kinase.Statistic),1,paste,collapse="\t"),collapse="\n")
+  updateTextInput(session, "branchValueBox", value = kinaseBranches)
+
+  # Update node color
+  updateTextInput(session, "nodeValueIDtype", value = "uniprot")
+  updateRadioButtons(session,"nodecolorpalettetype",selected="divergent")
+  kinaseNodeColors <- paste(apply(data.frame(kinaseNodeColor$Kinase.Uniprot.ID,kinaseNodeColor$Median.Kinase.Statistic),1,paste,collapse="\t"),collapse="\n")
+  updateTextInput(session, "nodeValueBox", value = kinaseNodeColors)
+
+  # Update node size
+  updateTextInput(session, "nodesizeValueIDtype", value = "uniprot")
+  kinaseNodeSizes <- paste(apply(data.frame(kinaseNodeSize$Kinase.Uniprot.ID,kinaseNodeSize$Median.Final.score),1,paste,collapse="\t"),collapse="\n")
+  updateTextInput(session, "nodesizeValueBox", value = kinaseNodeSizes)
+
+
+})
+
+
+
  
  # ----------------- MAIN REACTIVE FUNCTION ---------------- #
  

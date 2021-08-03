@@ -56,10 +56,17 @@ ui <- dashboardPage(title="CORAL",
                                               radioGroupButtons(
                                                inputId = "dashboardchooser", label = NULL, 
                                                choices = c("Info", "Plot"), 
-                                               selected = "Plot",
+                                               selected = "Info",
                                                justified = TRUE, status = "primary",
                                                checkIcon = list(yes = "", no = "")
                                               ),
+
+                                                 fluidRow(width = 12, 
+                                                        box(width=12, title = "Upload File", status = "primary", solidHeader = TRUE, collapsible = FALSE,
+                                                        
+                                                        fileInput("txtInput", " Choose .txt file from UKA", accept = c("text/plain", ".txt")),
+                                                        actionButton("parseInput", "Run Analysis"))),
+
                                               
                                               fluidRow( width=12,
                                                         box(width=12,title = "Branch Color",status = "primary", solidHeader = TRUE,
@@ -67,7 +74,7 @@ ui <- dashboardPage(title="CORAL",
                                                             
                                                             selectInput(inputId = "branchcolortype",label = "Color Scheme", 
                                                                         choices = c("Uniform","Manual","Categorical","Quantitative"),
-                                                                        multiple = FALSE,selected = "Uniform",width = "100%"),
+                                                                        multiple = FALSE,selected = "Quantitative",width = "100%"),
                                                             
                                                             # if single color
                                                             conditionalPanel(
@@ -98,7 +105,7 @@ ui <- dashboardPage(title="CORAL",
                                                              
                                                              selectInput(inputId = "branchManualIDtype",label = "Identifier",
                                                                          choices = c("coralID","uniprot","ensembl","entrez","HGNC"),
-                                                                         multiple = FALSE,selected = "coralID",width = "100%"),
+                                                                         multiple = FALSE,selected = "uniprot",width = "100%"),
                                                              
                                                              fluidRow( width=12,
                                                                        column(6,colourInput("col_select_bg", "Default Color", BG_col1,showColour = "both")),
@@ -118,12 +125,14 @@ ui <- dashboardPage(title="CORAL",
                                                              condition = "input.branchcolortype == 'Categorical'",
                                                              prettyCheckbox(inputId="loadexamplebranchgroup",label="load default kinase groups",value = FALSE,shape="round",status="primary"),
                                                              
+
+                                                               # TODO: Here the data from the 2 columns (uniprotID and median kinase statistic) should be entered
                                                              textAreaInput("branchGroupBox", "Kinases & Category", height = "100px",width = "100%",
                                                                            value = ""
                                                              ),
                                                              selectInput(inputId = "branchGroupIDtype",label = "Identifier",
                                                                          choices = c("coralID","uniprot","ensembl","entrez","HGNC"),
-                                                                         multiple = FALSE,selected = "coralID",width = "100%"),
+                                                                         multiple = FALSE,selected = "uniprot",width = "100%"),
                                                              
                                                              
                                                              # add option to manually pick groups
@@ -181,14 +190,15 @@ ui <- dashboardPage(title="CORAL",
                                                             conditionalPanel(
                                                              condition = "input.branchcolortype == 'Quantitative'",
                                                              prettyCheckbox(inputId="loadexamplebranchvalue",label="load example data",value = FALSE,shape="round",status="primary"),
-                                                             
+                                                                                                                            
+                                                               # TODO: Here the data from the 2 columns (uniprotID and median kinase statistic) should be entered
                                                              textAreaInput("branchValueBox", "Kinases & Value", height = "100px",width = "100%",
                                                                            value =  ""
                                                              ),
                                                              
                                                              selectInput(inputId = "branchValueIDtype",label = "Identifier",
                                                                          choices = c("coralID","uniprot","ensembl","entrez","HGNC"),
-                                                                         multiple = FALSE,selected = "coralID",width = "100%"),
+                                                                         multiple = FALSE,selected = "uniprot",width = "100%"),
                                                              
                                                              textInput(inputId = "quantvaluenamebranchcolor", label = "Legend Subtitle"),
                                                              
@@ -264,7 +274,7 @@ ui <- dashboardPage(title="CORAL",
                                                             selectInput(inputId = "nodecolortype",label = "Color Scheme",
                                                                         #  choices = c("None","Same as branches","Uniform","Manual","Categorical","Quantitative"),
                                                                         choices = c("None","Uniform","Manual","Categorical","Quantitative"),
-                                                                        multiple = FALSE,selected = "None",width = "100%"),
+                                                                        multiple = FALSE,selected = "Quantitative",width = "100%"),
                                                             
                                                             # if single color
                                                             conditionalPanel(
@@ -319,7 +329,7 @@ ui <- dashboardPage(title="CORAL",
                                                              ),
                                                              selectInput(inputId = "nodeGroupIDtype",label = "Identifier",
                                                                          choices = c("coralID","uniprot","ensembl","entrez","HGNC"),
-                                                                         multiple = FALSE,selected = "coralID",width = "100%"),
+                                                                         multiple = FALSE,selected = "uniprot",width = "100%"),
                                                              
                                                              # add option to manually pick groups
                                                              prettyCheckbox(inputId="manualgroupcols_node","manual category entry",
@@ -376,12 +386,14 @@ ui <- dashboardPage(title="CORAL",
                                                             conditionalPanel(
                                                              condition = "input.nodecolortype == 'Quantitative'",
                                                              prettyCheckbox(inputId="loadexamplennodevalue",label="load example data",value = FALSE,shape="round",status="primary"),
+
+                                                               # TODO: Here the data from the 2 columns (uniprotID and median kinase statistic) should be entered
                                                              textAreaInput("nodeValueBox", "Kinases & Value", height = "100px",width = "100%",
                                                                            value =  ""
                                                              ),
                                                              selectInput(inputId = "nodeValueIDtype",label = "Identifier",
                                                                          choices = c("coralID","uniprot","ensembl","entrez","HGNC"),
-                                                                         multiple = FALSE,selected = "coralID",width = "100%"),
+                                                                         multiple = FALSE,selected = "uniprot",width = "100%"),
                                                              
                                                              textInput(inputId = "quantvaluenamenodecolor", label = "Legend Subtitle"),
                                                              
@@ -471,7 +483,7 @@ ui <- dashboardPage(title="CORAL",
                                                              
                                                              selectInput(inputId = "nodesizetype",label = "Scaling Scheme",
                                                                          choices = c("One Size","Quantitative"),
-                                                                         multiple = FALSE,selected = "One Size",width = "100%"),
+                                                                         multiple = FALSE,selected = "Quantitative",width = "100%"),
                                                              
                                                              # if single color
                                                              conditionalPanel(
@@ -483,12 +495,14 @@ ui <- dashboardPage(title="CORAL",
                                                              conditionalPanel(
                                                               condition = "input.nodesizetype == 'Quantitative'",
                                                               prettyCheckbox(inputId="loadexamplennodesizevalue",label="load example data",value = FALSE,shape="round",status="primary"),
+
+                                                               # TODO: Here the data from the 2 columns (uniprotID and median kinase statistic) should be entered
                                                               textAreaInput("nodesizeValueBox", "Kinases & Value", height = "100px",width = "100%",
                                                                             value = ""
                                                               ),
                                                               selectInput(inputId = "nodesizeValueIDtype",label = "Identifier",
                                                                           choices = c("coralID","uniprot","ensembl","entrez","HGNC"),
-                                                                          multiple = FALSE,selected = "coralID",width = "100%"),
+                                                                          multiple = FALSE,selected = "uniprot",width = "100%"),
                                                               
                                                               textInput(inputId = "quantvaluenamenodesize", label = "Legend Subtitle"),
                                                               
@@ -648,6 +662,13 @@ ui <- dashboardPage(title="CORAL",
                                                 width=12,
                                                 shinyjs::useShinyjs(),
                                                 div(id="forcediv")
+                                               ),
+                                                tabPanel
+                                               ("Data",
+                                                width=12,
+                                                tableOutput("txtContents"),
+                                                shinyjs::useShinyjs(),
+                                                div(id="datadiv")
                                                )
                                               ),
                                               
