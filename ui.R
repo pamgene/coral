@@ -126,7 +126,6 @@ ui <- dashboardPage(title="CORAL",
                                                              prettyCheckbox(inputId="loadexamplebranchgroup",label="load default kinase groups",value = FALSE,shape="round",status="primary"),
                                                              
 
-                                                               # TODO: Here the data from the 2 columns (uniprotID and median kinase statistic) should be entered
                                                              textAreaInput("branchGroupBox", "Kinases & Category", height = "100px",width = "100%",
                                                                            value = ""
                                                              ),
@@ -191,7 +190,6 @@ ui <- dashboardPage(title="CORAL",
                                                              condition = "input.branchcolortype == 'Quantitative'",
                                                              prettyCheckbox(inputId="loadexamplebranchvalue",label="load example data",value = FALSE,shape="round",status="primary"),
                                                                                                                             
-                                                               # TODO: Here the data from the 2 columns (uniprotID and median kinase statistic) should be entered
                                                              textAreaInput("branchValueBox", "Kinases & Value", height = "100px",width = "100%",
                                                                            value =  ""
                                                              ),
@@ -387,7 +385,6 @@ ui <- dashboardPage(title="CORAL",
                                                              condition = "input.nodecolortype == 'Quantitative'",
                                                              prettyCheckbox(inputId="loadexamplennodevalue",label="load example data",value = FALSE,shape="round",status="primary"),
 
-                                                               # TODO: Here the data from the 2 columns (uniprotID and median kinase statistic) should be entered
                                                              textAreaInput("nodeValueBox", "Kinases & Value", height = "100px",width = "100%",
                                                                            value =  ""
                                                              ),
@@ -496,7 +493,6 @@ ui <- dashboardPage(title="CORAL",
                                                               condition = "input.nodesizetype == 'Quantitative'",
                                                               prettyCheckbox(inputId="loadexamplennodesizevalue",label="load example data",value = FALSE,shape="round",status="primary"),
 
-                                                               # TODO: Here the data from the 2 columns (uniprotID and median kinase statistic) should be entered
                                                               textAreaInput("nodesizeValueBox", "Kinases & Value", height = "100px",width = "100%",
                                                                             value = ""
                                                               ),
@@ -662,13 +658,6 @@ ui <- dashboardPage(title="CORAL",
                                                 width=12,
                                                 shinyjs::useShinyjs(),
                                                 div(id="forcediv")
-                                               ),
-                                                tabPanel
-                                               ("Data",
-                                                width=12,
-                                                tableOutput("txtContents"),
-                                                shinyjs::useShinyjs(),
-                                                div(id="datadiv")
                                                )
                                               ),
                                               
