@@ -64,8 +64,15 @@ ui <- dashboardPage(title="CORAL",
                                                  fluidRow(width = 12, 
                                                         box(width=12, title = "Upload File", status = "primary", solidHeader = TRUE, collapsible = FALSE,
                                                         
-                                                        fileInput("txtInput", " Choose .txt file from UKA", accept = c("text/plain", ".txt")),
-                                                        actionButton("parseInput", "Run Analysis"))),
+                                                        fileInput("txtInput1", " Choose .txt file from UKA PTK or STK", accept = c("text/plain", ".txt")),
+                                                        prettyCheckbox("Addextrafile","Add additional file",value = FALSE,shape="round",status="primary"),
+                                                              
+                                                        conditionalPanel(
+                                                               condition = "input.Addextrafile == true",
+                                                               fileInput("txtInput2", " Choose .txt file from UKA PTK or STK", accept = c("text/plain", ".txt"))
+                                                        ),
+                                                        actionButton("parseInput", "Run Analysis")) # //: BOX
+                                                        ), #//: FLUIDROW, 
 
                                               
                                               fluidRow( width=12,
