@@ -249,19 +249,34 @@ observeEvent(input$parseInput, {
   updateTextInput(session, "branchValueIDtype", value = "uniprot")
   kinaseBranches <- paste(apply(data.frame(kinaseNodeColor$Kinase.Uniprot.ID,kinaseNodeColor$Median.Kinase.Statistic),1,paste,collapse="\t"),collapse="\n")
   updateTextInput(session, "branchValueBox", value = kinaseBranches)
+  # Update branch color data range
+  # TODO: check what the lowest/highest value is (absolute) and make sure to mirror it (e.g. if min = -4 and max = 1, set min/max to -4/4)
+
 
   # Update node color
   updateTextInput(session, "nodeValueIDtype", value = "uniprot")
   updateRadioButtons(session,"nodecolorpalettetype",selected="divergent")
   kinaseNodeColors <- paste(apply(data.frame(kinaseNodeColor$Kinase.Uniprot.ID,kinaseNodeColor$Median.Kinase.Statistic),1,paste,collapse="\t"),collapse="\n")
   updateTextInput(session, "nodeValueBox", value = kinaseNodeColors)
+  # Update node color data range
+  # TODO: check what the lowest/highest value is (absolute) and make sure to mirror it (e.g. if min = -4 and max = 1, set min/max to -4/4)
+
 
   # Update node size
   updateTextInput(session, "nodesizeValueIDtype", value = "uniprot")
   kinaseNodeSizes <- paste(apply(data.frame(kinaseNodeSize$Kinase.Uniprot.ID,kinaseNodeSize$Median.Final.score),1,paste,collapse="\t"),collapse="\n")
   updateTextInput(session, "nodesizeValueBox", value = kinaseNodeSizes)
+  # Update node size data range, cutoff 1.2
+  minSizeDataRange <- 1
+  maxMedianFinalScore <- max(kinaseNodeSize$Median.Final.score)
+  maxSizeDataRange <- ceiling(maxMedianFinalScore / 0.5) * 0.5
+  updateNumericInput(session, "nodesizevaluemin", value = minSizeDataRange)
+  updateNumericInput(session, "nodesizevaluemax", value = maxSizeDataRange)
 
 
+  # Only plot kinases that are in the dataset
+  kinaseNames <- paste(apply(data.frame(kinaseNodeColor$Kinase.Uniprot.ID),1,paste,collapse="\t"),collapse="\n")
+  updateTextInput(session, "KinasesManualLabelsText", value = kinaseNames)
 })
 
 
