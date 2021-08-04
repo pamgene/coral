@@ -239,7 +239,6 @@ observeEvent(input$parseInput, {
     kinaseData <- rbind(kinaseData, kinaseData2)
    }
   }
-    print(head(kinaseData))
 
     # Score cutoff at 1.2
     kinaseData <- kinaseData %>% filter(Median.Final.score > 1.2)
