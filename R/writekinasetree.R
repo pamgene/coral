@@ -130,6 +130,8 @@ writekinasetree <- function(svginfo,destination,font,labelselect,groupcolor)
   outputlines = c(outputlines,"</g>")
   outputlines = c(outputlines,"</svg>")
   
+  Encoding(outputlines) <- "UTF-16"
+
   writeLines(outputlines,destination)
 }
 
