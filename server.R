@@ -250,7 +250,16 @@ observeEvent(input$parseInput, {
   kinaseBranches <- paste(apply(data.frame(kinaseNodeColor$Kinase.Uniprot.ID,kinaseNodeColor$Median.Kinase.Statistic),1,paste,collapse="\t"),collapse="\n")
   updateTextInput(session, "branchValueBox", value = kinaseBranches)
   # Update branch color data range
-  # TODO: check what the lowest/highest value is (absolute) and make sure to mirror it (e.g. if min = -4 and max = 1, set min/max to -4/4)
+  minColor <- floor(min(kinaseNodeColor$Median.Kinase.Statistic))
+  maxColor <- ceiling(max(kinaseNodeColor$Median.Kinase.Statistic))
+  if (maxColor < abs(minColor)) {
+    maxColor <- minColor * -1 # reverse min branch color
+  } else if (maxColor > abs(minColor) | maxColor == abs(minColor)) {
+    minColor <- maxColor * -1
+  } 
+  updateNumericInput(session, "minheat", value = minColor)
+  updateNumericInput(session, "maxheat", value = maxColor)
+
 
 
   # Update node color
@@ -259,8 +268,8 @@ observeEvent(input$parseInput, {
   kinaseNodeColors <- paste(apply(data.frame(kinaseNodeColor$Kinase.Uniprot.ID,kinaseNodeColor$Median.Kinase.Statistic),1,paste,collapse="\t"),collapse="\n")
   updateTextInput(session, "nodeValueBox", value = kinaseNodeColors)
   # Update node color data range
-  # TODO: check what the lowest/highest value is (absolute) and make sure to mirror it (e.g. if min = -4 and max = 1, set min/max to -4/4)
-
+  updateNumericInput(session, "nodeminheat", value = minColor)
+  updateNumericInput(session, "nodemaxheat", value = maxColor)
 
   # Update node size
   updateTextInput(session, "nodesizeValueIDtype", value = "uniprot")
