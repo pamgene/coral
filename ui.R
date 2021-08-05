@@ -515,7 +515,7 @@ ui <- dashboardPage(title="CORAL",
                                                               prettyRadioButtons(inputId = "nodesizefornotprovidedquantitative", label = "Missing Kinases",
                                                                                  choices = c("show","hide")),
                                                               
-                                                              prettyCheckbox("Manuallysetdatarange","manually set data range",value = FALSE,shape="round",status="primary"),
+                                                              prettyCheckbox("Manuallysetdatarange","manually set data range",value = TRUE,shape="round",status="primary"),
                                                               
                                                               conditionalPanel(
                                                                condition = "input.Manuallysetdatarange == true",
@@ -537,7 +537,7 @@ ui <- dashboardPage(title="CORAL",
                                                             
                                                             prettyRadioButtons("AdvancedSections",label = "",
                                                                                choices = c("Title","Labels","Node"),
-                                                                               selected = "Title",inline = TRUE),
+                                                                               selected = "Labels",inline = TRUE),
                                                             
                                                             conditionalPanel(
                                                              condition = "input.AdvancedSections == 'Title'",
@@ -560,7 +560,7 @@ ui <- dashboardPage(title="CORAL",
                                                              
                                                              selectInput(inputId = "fontcolorselect",label = "Label Color Scheme",
                                                                          choices = c("Same as Branch","Single Color","Manual"),
-                                                                         multiple = FALSE,selected = "Single Color",width = "100%"),
+                                                                         multiple = FALSE,selected = "Manual",width = "100%"),
                                                              
                                                              
                                                              conditionalPanel(condition = "input.fontcolorselect == 'Single Color'|| input.fontcolorselect == 'Same as Branch'",
@@ -577,7 +577,7 @@ ui <- dashboardPage(title="CORAL",
                                                                               
                                                                     selectInput(inputId = "labelsManualIDtype",label = "Identifier",
                                                                                           choices = c("coralID","uniprot","ensembl","entrez","HGNC"),
-                                                                                          multiple = FALSE,selected = "coralID",width = "100%"),
+                                                                                          multiple = FALSE,selected = "uniprot",width = "100%"),
                                                                               
                                                                     fluidRow( width=12,
                                                                                         column(6,colourInput("fontcolorbackground", "Default Color","#D3D3D3")),

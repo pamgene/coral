@@ -249,19 +249,43 @@ observeEvent(input$parseInput, {
   updateTextInput(session, "branchValueIDtype", value = "uniprot")
   kinaseBranches <- paste(apply(data.frame(kinaseNodeColor$Kinase.Uniprot.ID,kinaseNodeColor$Median.Kinase.Statistic),1,paste,collapse="\t"),collapse="\n")
   updateTextInput(session, "branchValueBox", value = kinaseBranches)
+  # Update branch color data range
+  minColor <- floor(min(kinaseNodeColor$Median.Kinase.Statistic))
+  maxColor <- ceiling(max(kinaseNodeColor$Median.Kinase.Statistic))
+  if (maxColor < abs(minColor)) {
+    maxColor <- minColor * -1 # reverse min branch color
+  } else if (maxColor > abs(minColor) | maxColor == abs(minColor)) {
+    minColor <- maxColor * -1
+  } 
+  updateNumericInput(session, "minheat", value = minColor)
+  updateNumericInput(session, "maxheat", value = maxColor)
+
+
 
   # Update node color
   updateTextInput(session, "nodeValueIDtype", value = "uniprot")
   updateRadioButtons(session,"nodecolorpalettetype",selected="divergent")
   kinaseNodeColors <- paste(apply(data.frame(kinaseNodeColor$Kinase.Uniprot.ID,kinaseNodeColor$Median.Kinase.Statistic),1,paste,collapse="\t"),collapse="\n")
   updateTextInput(session, "nodeValueBox", value = kinaseNodeColors)
+  # Update node color data range
+  updateNumericInput(session, "nodeminheat", value = minColor)
+  updateNumericInput(session, "nodemaxheat", value = maxColor)
 
   # Update node size
   updateTextInput(session, "nodesizeValueIDtype", value = "uniprot")
   kinaseNodeSizes <- paste(apply(data.frame(kinaseNodeSize$Kinase.Uniprot.ID,kinaseNodeSize$Median.Final.score),1,paste,collapse="\t"),collapse="\n")
   updateTextInput(session, "nodesizeValueBox", value = kinaseNodeSizes)
+  # Update node size data range, cutoff 1.2
+  minSizeDataRange <- 1
+  maxMedianFinalScore <- max(kinaseNodeSize$Median.Final.score)
+  maxSizeDataRange <- ceiling(maxMedianFinalScore / 0.5) * 0.5
+  updateNumericInput(session, "nodesizevaluemin", value = minSizeDataRange)
+  updateNumericInput(session, "nodesizevaluemax", value = maxSizeDataRange)
 
 
+  # Only plot kinases that are in the dataset
+  kinaseNames <- paste(apply(data.frame(kinaseNodeColor$Kinase.Uniprot.ID),1,paste,collapse="\t"),collapse="\n")
+  updateTextInput(session, "KinasesManualLabelsText", value = kinaseNames)
 })
 
 
