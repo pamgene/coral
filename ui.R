@@ -537,7 +537,8 @@ ui <- dashboardPage(
                                                                       # how to handle for values not provides
                                                                       prettyRadioButtons(
                                                                              inputId = "nodesizefornotprovidedquantitative", label = "Missing Kinases",
-                                                                             choices = c("show", "hide")
+                                                                             choices = c("show", "hide"),
+                                                                             selected = "hide"
                                                                       ),
                                                                       prettyCheckbox("Manuallysetdatarange", "manually set data range", value = TRUE, shape = "round", status = "primary"),
                                                                       conditionalPanel(
