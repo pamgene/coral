@@ -11,9 +11,7 @@ Forked from https://github.com/dphansti/CORAL.
 
 <sup>1</sup> Currently set to `Median.Kinase.Statistic` for branch and node color and `Median.Final.score` for node size.
 
-# Installation
-```
-R < install.R --no-save
-R < global.R --no-save
-R -e "shiny::runApp('.')"
-```
+## Installation
+
+`renv::restore()`
+Then start the Shiny server from either `ui.R` or `server.R`
