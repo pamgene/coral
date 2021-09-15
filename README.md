@@ -13,7 +13,8 @@ Forked from [dphansti/CORAL](https://github.com/dphansti/CORAL).
 
 ## Installation
 
-1. First install `Rtools` on Windows: [Rtools download link](https://cran.r-project.org/bin/windows/Rtools/)
-2. Open `CORAL.Rproj`
-3. Run `renv::restore()` from the R Console (bottom-right part of the RStudio window)
-4. Then start the Shiny server from either `ui.R` or `server.R`
+1. **(Required)** Install R version 4.1.0 or higher
+2. First install `Rtools` on Windows: [Rtools download link](https://cran.r-project.org/bin/windows/Rtools/)
+3. Open `CORAL.Rproj`
+4. Run `renv::restore()` from the R Console (bottom-right part of the RStudio window)
+5. Then start the Shiny server from either `ui.R` or `server.R`
