@@ -663,6 +663,7 @@ ui <- dashboardPage(
 
                                           conditionalPanel(
                                                  condition = "input.tabboxselected == 'Tree'",
+                                                 radioButtons(inputId = "downloadtype", label = "Download Filetype", choices = c("PNG", "SVG"), selected = "PNG"),
                                                  tipify(downloadButton(outputId = "downloadtree", label = "Download"),
                                                         title = "Plots download in SVG vector format, which can be opened in web browsers and graphics software. To easily convert to PDF, we recommend opening the SVG in Safari and selecting File > Export to PDF. To convert using another browser, choose the Save as PDF option in the Print menu.",
                                                         placement = "bottom", trigger = "hover"
