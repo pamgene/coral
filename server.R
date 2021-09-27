@@ -891,10 +891,19 @@ server <- function(input, output, session) {
 
   output$downloadtree <- downloadHandler(
     filename <- function(file) {
-      paste("CORAL", ".", "tree", ".", "svg", sep = "")
+      if (input$downloadtype == "SVG") {
+        paste("CORAL", ".", "tree", ".", "svg", sep = "")
+      } else if (input$downloadtype == "PNG") {
+        paste("CORAL", ".", "tree", ".", "png", sep = "")
+      }
     },
     content <- function(file) {
-      file.copy(svgoutfile, file)
+      if (input$downloadtype == "SVG") {
+        file.copy(svgoutfile, file)
+      } else if (input$downloadtype == "PNG") {
+        img <- magick::image_read(svgoutfile, density = 150)
+        magick::image_write(img, file, format = "png", flatten = TRUE)
+      }
     }
 
     # content = function(file) {
