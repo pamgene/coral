@@ -901,7 +901,8 @@ server <- function(input, output, session) {
       if (input$downloadtype == "SVG") {
         file.copy(svgoutfile, file)
       } else if (input$downloadtype == "PNG") {
-        img <- magick::image_read(svgoutfile, density = 150)
+        pngDPI <- as.numeric(input$pngDPI)
+        img <- magick::image_read(svgoutfile, density = pngDPI)
         magick::image_write(img, file, format = "png", flatten = TRUE)
       }
     }
