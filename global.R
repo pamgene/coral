@@ -10,7 +10,6 @@ library(rsvg)
 library(shinyWidgets)
 library(RColorBrewer)
 library(dplyr)
-library(png)
 
 # load Manning-related libraries
 library(svgPanZoom)
