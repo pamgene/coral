@@ -902,7 +902,11 @@ server <- function(input, output, session) {
         file.copy(svgoutfile, file)
       } else if (input$downloadtype == "PNG") {
         pngDPI <- as.numeric(input$pngDPI)
+        if(.Platform$OS.type == "unix") {
+          img <- magick::image_read_svg(svgoutfile, density = pngDPI)
+          } else {
         img <- magick::image_read(svgoutfile, density = pngDPI)
+          }
         magick::image_write(img, file, format = "png", flatten = FALSE)
       }
     }
