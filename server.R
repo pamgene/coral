@@ -903,7 +903,7 @@ server <- function(input, output, session) {
       } else if (input$downloadtype == "PNG") {
         pngDPI <- as.numeric(input$pngDPI)
         img <- magick::image_read(svgoutfile, density = pngDPI)
-        magick::image_write(img, file, format = "png", flatten = TRUE)
+        magick::image_write(img, file, format = "png", flatten = FALSE)
       }
     }
 
