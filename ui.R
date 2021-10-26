@@ -619,7 +619,7 @@ ui <- dashboardPage(
                                                                       fluidRow(
                                                                              width = 12,
                                                                              column(6, sliderInput("fontsizebackground", "Default Size", min = 0, max = 8, value = 0, step = 0.05, ticks = F)),
-                                                                             column(6, sliderInput("fontsizeselection", "Selection Size", min = 0, max = 8, value = 6, step = 0.05, ticks = F))
+                                                                             column(6, sliderInput("fontsizeselection", "Selection Size", min = 0, max = 8, value = 7, step = 0.05, ticks = F))
                                                                       )
                                                                ),
                                                                colourInput("groupcolorchoose", "Group Color", "#000000")
