@@ -217,7 +217,7 @@ ui <- dashboardPage(
                                                                       choices = c("coralID", "uniprot", "ensembl", "entrez", "HGNC"),
                                                                       multiple = FALSE, selected = "uniprot", width = "100%"
                                                                ),
-                                                               textInput(inputId = "quantvaluenamebranchcolor", label = "Legend Subtitle", value = "Effect Size (Median Kinase Statistic)"),
+                                                               textInput(inputId = "quantvaluenamebranchcolor", label = "Legend Subtitle", value = "Kinase Statistic"),
                                                                fluidRow(
                                                                       width = 12,
                                                                       column(6, numericInput(inputId = "minheat", label = "Min Value", value = -3)),
@@ -423,7 +423,7 @@ ui <- dashboardPage(
                                                                       choices = c("coralID", "uniprot", "ensembl", "entrez", "HGNC"),
                                                                       multiple = FALSE, selected = "uniprot", width = "100%"
                                                                ),
-                                                               textInput(inputId = "quantvaluenamenodecolor", label = "Legend Subtitle", value = "Effect Size (Median Kinase Statistic)"),
+                                                               textInput(inputId = "quantvaluenamenodecolor", label = "Legend Subtitle", value = "Kinase Statistic"),
                                                                fluidRow(
                                                                       width = 12,
                                                                       column(6, numericInput(inputId = "nodeminheat", label = "Min Value", value = -3)),
@@ -531,7 +531,7 @@ ui <- dashboardPage(
                                                                              choices = c("coralID", "uniprot", "ensembl", "entrez", "HGNC"),
                                                                              multiple = FALSE, selected = "uniprot", width = "100%"
                                                                       ),
-                                                                      textInput(inputId = "quantvaluenamenodesize", label = "Legend Subtitle", value = "Kinase Rank (Median Final Score)"),
+                                                                      textInput(inputId = "quantvaluenamenodesize", label = "Legend Subtitle", value = "Kinase Score"),
                                                                       sliderInput("nodesizeValueslider", label = "Size Range", value = c(3, 9), min = 0, max = 20, step = 0.25),
 
                                                                       # how to handle for values not provides
